@@ -1,5 +1,4 @@
 [
-  [
   {
     "id": "1",
     "userId": "101",
@@ -14,5 +13,4 @@
     "imageUrl": "https://placekitten.com/301/301",
     "likes": ["101"]
   }
-  ]
 ]

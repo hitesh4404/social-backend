@@ -3,9 +3,34 @@ const fs = require("fs");
 const path = require("path");
 const router = express.Router();
 
-// Use project root (Render’s working directory)
-const POSTS_FILE = path.join(process.cwd(), "database/posts.json");
-const USERS_FILE = path.join(process.cwd(), "database/users.json");
+
+
+const posts = [
+  {
+    id: "1",
+    userId: "101",
+    username: "John",
+    caption: "Hello Explore!",
+    imageUrl: "https://placekitten.com/300/300",
+    profilePhoto: "https://placekitten.com/50/50",
+    likes: []
+  },
+  {
+    id: "2",
+    userId: "102",
+    username: "Emma",
+    caption: "Another post",
+    imageUrl: "https://placekitten.com/301/301",
+    profilePhoto: "https://placekitten.com/51/51",
+    likes: ["101"]
+  }
+];
+
+router.get("/", (req, res) => {
+  res.json(posts);
+});
+
+
 
 function readJson(filePath) {
   if (!fs.existsSync(filePath)) return [];
@@ -40,4 +65,5 @@ router.get("/", (req, res) => {
 });
 
 module.exports = router;
+
 

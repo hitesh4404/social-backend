@@ -1,9 +1,10 @@
 const express = require("express");
 const fs = require("fs");
 const router = express.Router();
+const path = require("path");
 
-const POSTS_FILE = "./database/posts.json";
-const USERS_FILE = "./database/users.json";
+const POSTS_FILE = path.join(__dirname, "../database/posts.json");
+const USERS_FILE = path.join(__dirname, "../database/users.json");
 
 /* helper functions */
 function readPosts() {
@@ -58,6 +59,7 @@ router.get("/user/:userId", (req, res) => {
 
     res.json(userPosts);
 });
+
 
 
 

@@ -19,6 +19,11 @@ const posts = [
 ];
 
 
+
+router.get("/", (req, res) => {
+  res.json(posts);
+});
+
 /* helper functions */
 function readPosts() {
     if (!fs.existsSync(POSTS_FILE)) fs.writeFileSync(POSTS_FILE, JSON.stringify([]));
@@ -76,4 +81,5 @@ router.get("/user/:userId", (req, res) => {
 
 
 module.exports = router;
+
 

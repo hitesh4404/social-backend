@@ -3,19 +3,16 @@ const fs = require("fs");
 const path = require("path");
 const router = express.Router();
 
-const POSTS_FILE = path.join(__dirname, "../database/posts.json");
-const USERS_FILE = path.join(__dirname, "../database/users.json");
+// Use project root (Render’s working directory)
+const POSTS_FILE = path.join(process.cwd(), "database/posts.json");
+const USERS_FILE = path.join(process.cwd(), "database/users.json");
 
-// Safe read JSON function
 function readJson(filePath) {
-  if (!fs.existsSync(filePath)) {
-    return []; // return empty if file not found
-  }
+  if (!fs.existsSync(filePath)) return [];
   const raw = fs.readFileSync(filePath, "utf-8");
   return JSON.parse(raw);
 }
 
-// GET all posts for Explore
 router.get("/", (req, res) => {
   try {
     const posts = readJson(POSTS_FILE);
@@ -43,3 +40,4 @@ router.get("/", (req, res) => {
 });
 
 module.exports = router;
+

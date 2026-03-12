@@ -6,23 +6,6 @@ const path = require("path");
 const POSTS_FILE = path.join(__dirname, "../database/posts.json");
 const USERS_FILE = path.join(__dirname, "../database/users.json");
 
-const posts = [
-  {
-    id: "1",
-    userId: "101",
-    username: "John",
-    caption: "Hello Explore!",
-    imageUrl: "https://placekitten.com/300/300",
-    profilePhoto: "https://placekitten.com/50/50",
-    likes: []
-  }
-];
-
-
-
-router.get("/", (req, res) => {
-  res.json(posts);
-});
 
 /* helper functions */
 function readPosts() {
@@ -81,5 +64,6 @@ router.get("/user/:userId", (req, res) => {
 
 
 module.exports = router;
+
 
 

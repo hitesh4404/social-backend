@@ -1,54 +1,64 @@
 const express = require("express");
 const fs = require("fs");
-const path = require("path");
 const router = express.Router();
 
-// Absolute paths to JSON files
-const POSTS_FILE = path.join(__dirname, "../database/posts.json");
-const USERS_FILE = path.join(__dirname, "../database/users.json");
+const POSTS_FILE = "./database/posts.json";
+const USERS_FILE = "./database/users.json";
 
-// Ensure folder exists
-function ensureFolder(filePath) {
-    const dir = path.dirname(filePath);
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+/* helper functions */
+function readPosts() {
+    if (!fs.existsSync(POSTS_FILE)) fs.writeFileSync(POSTS_FILE, JSON.stringify([]));
+    return JSON.parse(fs.readFileSync(POSTS_FILE));
 }
 
-// Safe read JSON
-function readJson(filePath) {
-    ensureFolder(filePath);
-    if (!fs.existsSync(filePath)) fs.writeFileSync(filePath, JSON.stringify([]));
-    const raw = fs.readFileSync(filePath, "utf-8");
-    return JSON.parse(raw);
+function readUsers() {
+    if (!fs.existsSync(USERS_FILE)) fs.writeFileSync(USERS_FILE, JSON.stringify([]));
+    return JSON.parse(fs.readFileSync(USERS_FILE));
 }
 
-// GET all posts for Explore
+/* GET ALL POSTS RANDOMLY WITH USERNAME AND LIKES */
 router.get("/", (req, res) => {
-    try {
-        const posts = readJson(POSTS_FILE);
-        const users = readJson(USERS_FILE);
+    const posts = readPosts();
+    const users = readUsers();
 
-        const mergedPosts = posts.map(post => {
-            const user = users.find(u => String(u.id) === String(post.userId));
-            return {
-                id: post.id || post._id || Math.random().toString(36).substring(2, 9),
-                userId: post.userId,
-                username: user ? user.username : "Unknown",
-                caption: post.caption,
-                imageUrl: post.imageUrl,
-                profilePhoto: user?.profilePhoto || "",
-                likes: post.likes || []
-            };
-        });
+    // Merge username into posts
+    const mergedPosts = posts.map(post => {
+        const user = users.find(u => u.id === post.userId);
+        return {
+            ...post,
+            username: user ? user.username : "Unknown", // username of the post creator
+            likes: post.likes || [],
+            profilePhoto: user?.profilePhoto || ""
+        };
+    });
 
-        const shuffled = mergedPosts.sort(() => Math.random() - 0.5);
-        res.json(shuffled);
+    // Shuffle posts randomly
+    const shuffled = mergedPosts.sort(() => Math.random() - 0.5);
 
-    } catch (err) {
-        console.error("Error in /api/explore:", err);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
+    res.json(shuffled);
 });
 
+
+
+
+function getPosts() {
+    const data = fs.readFileSync(POSTS_FILE, "utf-8");
+    return JSON.parse(data);
+}
+
+// GET posts by user ID
+router.get("/user/:userId", (req, res) => {
+    const userId = req.params.userId;
+
+    const posts = getPosts();
+
+    const userPosts = posts.filter(
+        (post) => post.userId == userId
+    );
+
+    res.json(userPosts);
+});
+
+
+
 module.exports = router;
-
-

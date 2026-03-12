@@ -20,7 +20,6 @@ app.use("/api", authRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/explore", postsexp);
-app.use("/api/posts", postsexp)
 app.use("/api/posts/user", postRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", deleteUser);
@@ -31,4 +30,5 @@ const PORT = 5000;
 
 app.listen(PORT, () => {
     console.log("Server running on port 5000");
+
 });

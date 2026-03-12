@@ -1,18 +1,1 @@
-[
-  [
-  {
-    "id": "1",
-    "userId": "101",
-    "caption": "Hello Explore!",
-    "imageUrl": "https://placekitten.com/300/300",
-    "likes": []
-  },
-  {
-    "id": "2",
-    "userId": "102",
-    "caption": "Another post",
-    "imageUrl": "https://placekitten.com/301/301",
-    "likes": ["101"]
-  }
-]
-]
+[]

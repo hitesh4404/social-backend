@@ -24,5 +24,15 @@
     "password": "hitesh@4404",
     "bio": "",
     "profilePhoto": "https://th.bing.com/th/id/OIP.o35ox5ssX5Xrns5fkmifGAHaHq?w=149&h=180&c=7&r=0&o=7&pid=1.7&rm=3"
+  },
+  {
+    "id": "101",
+    "username": "John",
+    "profilePhoto": "https://placekitten.com/50/50"
+  },
+  {
+    "id": "102",
+    "username": "Emma",
+    "profilePhoto": "https://placekitten.com/51/51"
   }
 ]

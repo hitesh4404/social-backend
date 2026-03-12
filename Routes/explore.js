@@ -6,7 +6,6 @@ const path = require("path");
 const POSTS_FILE = path.join(__dirname, "../database/posts.json");
 const USERS_FILE = path.join(__dirname, "../database/users.json");
 
-
 /* helper functions */
 function readPosts() {
     if (!fs.existsSync(POSTS_FILE)) fs.writeFileSync(POSTS_FILE, JSON.stringify([]));
@@ -64,6 +63,4 @@ router.get("/user/:userId", (req, res) => {
 
 
 module.exports = router;
-
-
 
